@@ -168,8 +168,9 @@
     var material = new THREE.MeshBasicMaterial({
       // color: 0x00FF00,
       map: texture,
-      depthWrite: false,
-      transparent: true
+      //Not needed when using Y boord instead of renderDepth hack to sort the drawing  
+      //depthWrite: false,
+      //transparent: true
     });
 
     // Update material otherwise canvas shows up black
@@ -190,7 +191,8 @@
     var gridMesh = new THREE.Mesh(geom, material);
 
     // Hacky method for forcing render depth / layers using tile zoom
-    gridMesh.renderDepth = grid.tileZoom * -1;
+    //gridMesh.renderDepth = grid.tileZoom * -1;
+    gridMesh.position.y = grid.tileZoom * 0.1;  
 
     var centerPos = [geoBounds.sw.x + (size[0] / 2), geoBounds.sw.y - (size[1] / 2)];
 
